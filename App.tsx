@@ -1,11 +1,6 @@
 import { useState } from 'react';
 
-type MenuItem = {
-  name: string;
-  price: number;
-};
-
-const menuItems: MenuItem[] = [
+const menuItems = [
   { name: '蚵仔煎', price: 80 },
   { name: '海鮮焗烤飯', price: 150 },
   { name: '宮保雞丁', price: 120 },
@@ -17,17 +12,17 @@ const menuItems: MenuItem[] = [
   { name: '韓式部隊鍋', price: 180 },
 ];
 
-function App() {
-  const [cart, setCart] = useState<MenuItem[]>([]);
+export default function OrderApp() {
+  const [cart, setCart] = useState([]);
 
-  const addToCart = (item: MenuItem) => {
+  const addToCart = (item) => {
     setCart([...cart, item]);
   };
 
   const total = cart.reduce((sum, item) => sum + item.price, 0);
 
   const placeOrder = () => {
-    alert(`已送出訂單：\n${cart.map((i) => i.name).join(', ')}\n總金額：$${total}`);
+    alert('已送出訂單\n' + cart.map(i => i.name).join(', ') + `\n總金額：$${total}`);
     setCart([]);
   };
 
@@ -57,12 +52,11 @@ function App() {
         ) : (
           <ul className="list-disc list-inside">
             {cart.map((item, i) => (
-              <li key={i}>
-                {item.name} - ${item.price}
-              </li>
+              <li key={i}>{item.name} - ${item.price}</li>
             ))}
           </ul>
         )}
+
         <p className="mt-2 font-semibold">總金額：${total}</p>
 
         <button
@@ -76,5 +70,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
